@@ -31,7 +31,7 @@ func push(_ num: Int) {
 func pop() -> Int {
     var num = 1
 
-    if head != tail {
+    if !isEmpty {
         num = arr[head%n]
         head += 1
     }
