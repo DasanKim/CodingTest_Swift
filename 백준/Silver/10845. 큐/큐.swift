@@ -28,7 +28,7 @@ func queue(_ command: [String]) {
         case "front":
         result.append((arr.isEmpty || arr[head%n] == "") ? "-1" : arr[head%n])
         case "back":
-        result.append((arr.isEmpty || arr[head%n] == "") ? "-1" : arr[tail%n-1])
+        result.append((arr.isEmpty || head == tail) ? "-1" : arr[tail%n-1])
         default:
         print("error")
     }
