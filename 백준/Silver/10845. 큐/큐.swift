@@ -15,7 +15,7 @@ func queue(_ command: [String]) {
         arr[tail%n] = command.last!
         tail += 1
         case "pop":
-        if arr.isEmpty || arr[head%n] == "" {
+        if head == tail {
             result.append("-1")
         } else {
             result.append(arr[head%n])
@@ -24,9 +24,9 @@ func queue(_ command: [String]) {
         case "size":
         result.append(String(tail-head))
         case "empty":
-        result.append(tail == head ? "1" : "0")
+        result.append(head == tail ? "1" : "0")
         case "front":
-        result.append(arr[head%n] == "" ? "-1" : arr[head%n])
+        result.append(head == tail ? "-1" : arr[head%n])
         case "back":
         result.append(head == tail ? "-1" : arr[tail%n-1])
         default:
