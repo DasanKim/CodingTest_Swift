@@ -18,7 +18,7 @@ while !queue.isEmpty {
     for i in 0..<3 {
         let nx = dx[i]
 
-        if nx <= -1 || nx >= max { continue }
+        if nx < 0  || nx >= max { continue }
         if board[nx] != 0 { continue }
 
         board[nx] = board[cur] + 1
