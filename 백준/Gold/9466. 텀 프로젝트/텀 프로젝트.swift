@@ -18,16 +18,17 @@ for _ in 0..<caseCount {
 
 func dfs(_ n: Int) {
     var tempVist: [Int] = []
-    var stack:[Int] = [n]
+    var stack = n
 
-    while !stack.isEmpty {
-        let cur = stack.popLast()!
+    while stack != -1 {
+        let cur = stack
         let next = arr[cur]
+        stack = -1
         vist[cur] = true
         tempVist.append(cur)
 
         if !vist[next] {
-            stack.append(next)
+            stack = next
         } else {
             for i in tempVist {
                 if i == next { break }
