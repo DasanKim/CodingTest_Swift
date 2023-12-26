@@ -1,7 +1,6 @@
 var input: [Int] = []
 var numbers: [Int] = []
 var sequence: [Int] = []
-var isUsed: [Bool] = []
 var n = -1
 
 while true {
@@ -13,9 +12,9 @@ while true {
 
     numbers.append(contentsOf: input[1...input.count-1])
     sequence = .init(repeating: 0, count: 6)
-    isUsed = .init(repeating: false, count: n)
 
     process(0, index: 0)
+
     print("")
 }
 
@@ -26,11 +25,7 @@ func process(_ x: Int, index: Int) {
     }
 
     for i in index..<n {
-        if !isUsed[i] {
-            sequence[x] = numbers[i]
-            isUsed[i] = true
-            process(x+1, index: i+1)
-            isUsed[i] = false
-        }
+        sequence[x] = numbers[i]
+        process(x+1, index: i+1)
     }
 }
