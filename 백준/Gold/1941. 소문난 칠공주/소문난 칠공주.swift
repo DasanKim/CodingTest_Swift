@@ -48,34 +48,34 @@ func checkS(_ combi: [Int]) -> Bool {
 
 // 3. 7명은 가로, 세로로 반드시 인접해야 함 -> bfs
 func bfs(_ combi: [Int]) -> Bool {
-    var queue: [(Int, Int)] = []
-    var vist = Array(repeating: Array(repeating: false, count: 5), count: 5)
+    var queue: [Int] = []
+    var vist = Array(repeating: false, count: 7)
     let dx = [-1, 1, 0, 0]
     let dy = [0, 0, -1, 1]
 
     var pointer = 0
     var sevenCount = 0
 
-    let x = combi[0]/5
-    let y = combi[0]%5
-
-    vist[x][y] = true
-    queue.append((x, y))
+    vist[0] = true
+    queue.append(combi[0])
 
     while pointer < queue.count {
         let cur = queue[pointer]
         pointer += 1
+
         sevenCount += 1
 
         for i in 0..<4 {
-            let nx = cur.0 + dx[i]
-            let ny = cur.1 + dy[i]
+            let nx = cur/5 + dx[i]
+            let ny = cur%5 + dy[i]
+            let value = (nx*5)+ny
 
             if !(0..<5 ~= nx) || !(0..<5 ~= ny) { continue }
-            if vist[nx][ny] == true || !combi.contains((nx*5)+ny) { continue }
+            guard let index = combi.firstIndex(of: value) else { continue }
+            if vist[index] == true { continue }
 
-            vist[nx][ny] = true
-            queue.append((nx, ny))
+            vist[index] = true
+            queue.append(value)
         }
     }
 
