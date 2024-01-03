@@ -10,11 +10,11 @@ for _ in 0..<n {
 process(0)
 print(result)
 
-func process(_ x: Int) {
+func process(_ x: Int) { // x: 현재 들고 있는 계란
     if x == n {
         return
     }
-
+    
     for i in 0..<n {
         if eggs[x].0 <= 0 { // 내 계란이 깨져있으면 x+1로 넘어가기
             process(x+1)
@@ -35,6 +35,6 @@ func count(_ eggs: [(Int, Int)]) {
     var count = 0
     for egg in eggs {
         if egg.0 <= 0 { count += 1 }
-        result = max(result, count)
     }
+    result = max(result, count)
 }
