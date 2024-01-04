@@ -6,6 +6,7 @@ let r = inputs[3] // 빨간색 배양액 개수
 var board = Array(repeating: Array(repeating: "", count: m), count: n)
 var sprinkable: [(Int, Int)] = []
 var queue: [(Int, Int)] = []
+var vist: [[(String, Int)]] = []
 
 for i in 0..<n {
     let input = readLine()!.split(separator: " ").map { String($0) }
@@ -18,9 +19,7 @@ for i in 0..<n {
 var rCombi = Array(repeating: (-1,-1), count: r)
 var gCombi = Array(repeating: (-1,-1), count: g)
 var isUsed = Array(repeating: false, count: sprinkable.count)
-
 var result = 0
-var vist = Array(repeating: Array(repeating: ("", 0), count: m), count: n)
 
 recursiveR(0, index: 0)
 print(result)
@@ -89,13 +88,15 @@ func bfs() -> Int {
         let cur = queue[pointer]
         pointer += 1
 
+        if vist[cur.0][cur.1].0 == "F" { continue }
+
         for i in 0..<4 {
             let curColor = vist[cur.0][cur.1].0
             let nx = cur.0 + dx[i]
             let ny = cur.1 + dy[i]
 
             if !(0..<n ~= nx) || !(0..<m ~= ny) { continue }
-            if board[nx][ny] == "0" || vist[nx][ny].0 == "F" || vist[cur.0][cur.1].0 == "F" { continue }
+            if board[nx][ny] == "0" || vist[nx][ny].0 == "F" { continue }
 
             if vist[nx][ny].0 == "" {
                 vist[nx][ny] = (curColor, vist[cur.0][cur.1].1 + 1)
