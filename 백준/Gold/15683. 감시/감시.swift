@@ -4,6 +4,13 @@ let m = inputs[1]
 // 북 동 남 서
 let dx = [-1, 0, 1, 0]
 let dy = [0, 1, 0, -1]
+let cctvDir = [
+    [[0], [1], [2], [3]],
+    [[1,3], [0,2]],
+    [[0,1], [1,2], [2,3], [3,4]],
+    [[3,1,2], [0,1,2], [1,2,3], [2,3,0]],
+    [[1,2,3,4]]
+]
 
 var board = Array(repeating: Array(repeating: 0, count: m), count: n)
 var cctv: [(Int, Int)] = []
@@ -31,7 +38,8 @@ func process() {
 
     for i in 0..<combis.count {
         vist = Array(repeating: Array(repeating: false, count: m), count: n)
-        for j in 0..<cctv.count {
+
+        for j in 0..<combis[i].count {
             let curDir = combis[i][j]
             let curCoord = cctv[j]
             let curCctv = board[curCoord.0][curCoord.1]
@@ -66,7 +74,10 @@ func search(_ x: Int) {
         return
     }
 
-    for i in 0..<4 {
+    let curValue = board[cctv[x].0][cctv[x].1]
+    let index = cctvDir[curValue-1].count
+
+    for i in 0..<index {
         combi[x] = i
         search(x+1)
     }
