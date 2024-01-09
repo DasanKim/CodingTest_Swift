@@ -1,5 +1,6 @@
 let n = Int(readLine()!)!
 var inputs: [(Int, String)] = []
+var result = ""
 
 for _ in 0..<n {
     let input = readLine()!.split(separator: " ")
@@ -7,5 +8,6 @@ for _ in 0..<n {
 }
 
 for a in inputs.sorted(by: { $0.0 < $1.0 }) {
-    print("\(a.0) \(a.1)")
+    result.write("\(a.0) \(a.1)\n")
 }
+print(result)
