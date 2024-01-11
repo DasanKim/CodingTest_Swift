@@ -1,18 +1,17 @@
-var firstInputs = readLine()!.split(separator: " ").map { String($0) }
+var firstInputs = readLine()!.split(separator: " ")
 let n = Int(firstInputs.removeFirst())!
-var numbers: [Int] = []
-
-for input in firstInputs {
-    numbers.append(Int(String(input.reversed()))!)
-}
+var numbers = firstInputs
 
 while numbers.count < n {
-    let inputs = readLine()!.split(separator: " ").map { String($0).reversed() }
-    for input in inputs {
-        numbers.append(Int(String(input))!)
-    }
+    let inputs = readLine()!.split(separator: " ")
+    numbers.append(contentsOf: inputs)
 }
 
-for number in numbers.sorted() {
-    print(number)
+let arr = numbers.compactMap { Int(String($0.reversed())) }
+
+var result = ""
+
+for number in arr.sorted() {
+    result += "\(number)\n"
 }
+print(result)
