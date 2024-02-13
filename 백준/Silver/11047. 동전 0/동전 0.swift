@@ -15,8 +15,8 @@ while index != 0 && k != 0 {
         index -= 1
         continue
     } else {
-        k -= arr[index]
-        coinCount += 1
+        coinCount += k / arr[index]
+        k = k % arr[index]
     }
 }
 
