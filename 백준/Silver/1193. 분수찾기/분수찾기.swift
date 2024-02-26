@@ -1,27 +1,25 @@
 let x = Int(readLine()!)!
 
-var count = 1
-var index = 1
+var turn = 1
+var endIndex  = 1
 
-while count < x {
-    index += 1
-    count += index
+while endIndex < x {
+    turn += 1
+    endIndex += turn
 }
 
-let start = count - index + 1
-let end = count
-var number = index
-let sum = index + 1
+let startIndex = endIndex - turn + 1
+let sum = turn + 1
+var number = turn
 
-for i in start...end {
+for i in startIndex...endIndex {
     if i == x {
-        if index % 2 != 0 {
+        if turn % 2 != 0 {
             print("\(number)/\(sum-number)")
-            break
         } else {
             print("\(sum-number)/\(number)")
-            break
         }
+        break
     }
     number -= 1
 }
