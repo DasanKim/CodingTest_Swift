@@ -18,14 +18,10 @@ while true {
 
     var count = 0
 
-    if n == 1 {
-        print("1")
-    } else {
-        for i in n+1...2*n {
-            if arr[i] == true {
-                count += 1
-            }
+    for i in n+1...2*n {
+        if arr[i] == true {
+            count += 1
         }
-        print(count)
     }
+    print(count)
 }
