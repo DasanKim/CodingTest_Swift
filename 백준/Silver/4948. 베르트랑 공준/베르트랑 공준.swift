@@ -4,12 +4,14 @@ var arr = Array(repeating: true, count: doubleN + 1)
 
 arr[1] = false
 
-for i in 2...doubleN {
+var i = 2
+while i*i <= doubleN {
     if arr[i] == true {
         for j in stride(from: i*i, through: doubleN, by: i) {
             arr[j] = false
         }
     }
+    i += 1
 }
 
 while true {
