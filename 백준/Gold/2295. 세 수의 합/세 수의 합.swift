@@ -22,8 +22,9 @@ func test() {
     let sum = Set(b).sorted()
 
     for x in a.reversed() {
-        for y in sum {
-            if binarySearch(x-y) {
+        for y in a.reversed() {
+            if x-y > 0 && binarySearch(x-y) {
+                //print("결과있음: \(x)")
                 print(x)
                 return
             }
@@ -32,13 +33,13 @@ func test() {
 
     func binarySearch(_ target: Int) -> Bool {
         var st = 0
-        var en = n-1
+        var en = sum.count-1
 
         while st <= en {
             let mid = (st+en) / 2
-            if a[mid] > target {
+            if sum[mid] > target {
                 en = mid - 1
-            } else if a[mid] < target {
+            } else if sum[mid] < target {
                 st = mid + 1
             } else {
                 return true
