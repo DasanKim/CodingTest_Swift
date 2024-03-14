@@ -1,7 +1,7 @@
 func solution() {
     let n = Int(readLine()!)!
     var arr = Array(repeating: true, count: n+1)
-    var prime = [Int]()
+    var primes = [Int]()
     
     if n == 1 {
         print("0")
@@ -12,21 +12,17 @@ func solution() {
     
     for i in 2...n {
         if arr[i] == true {
+            primes.append(i)
+            
             for j in stride(from: i*i, through: n, by: i) {
                 arr[j] = false
             }
         }
     }
     
-    for i in 2...n {
-        if arr[i] == true {
-            prime.append(i)
-        }
-    }
-    
-    let m = prime.count
+    let m = primes.count
     var end = 0
-    var total = prime[0]
+    var total = primes[0]
     var result = 0
     
     for start in 0..<m {
@@ -37,11 +33,11 @@ func solution() {
             }
             end += 1
             if end != m {
-                total += prime[end]
+                total += primes[end]
             }
         }
         if end == m { break }
-        total -= prime[start]
+        total -= primes[start]
     }
     
     print(result)
