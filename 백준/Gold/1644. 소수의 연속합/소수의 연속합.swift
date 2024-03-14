@@ -26,16 +26,13 @@ func solution() {
     var result = 0
     
     for start in 0..<m {
-        while end < m && total <= n {
-            if total == n {
-                result += 1
-                break
-            }
+        while end < m && total < n {
             end += 1
             if end != m {
                 total += primes[end]
             }
         }
+        if total == n { result += 1}
         if end == m { break }
         total -= primes[start]
     }
