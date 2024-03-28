@@ -104,32 +104,4 @@ final class FileIO {
 
         return sum * (isPositive ? 1:-1)
     }
-
-    @inline(__always) func readString() -> String {
-        var now = read()
-
-        while now == 10 || now == 32 { now = read() } // 공백과 줄바꿈 무시
-
-        let beginIndex = index-1
-
-        while now != 10,
-        now != 32,
-        now != 0 { now = read() }
-
-        return String(bytes: Array(buffer[beginIndex..<(index-1)]), encoding: .ascii)!
-    }
-
-    @inline(__always) func readByteSequenceWithoutSpaceAndLineFeed() -> [UInt8] {
-        var now = read()
-
-        while now == 10 || now == 32 { now = read() } // 공백과 줄바꿈 무시
-
-        let beginIndex = index-1
-
-        while now != 10,
-        now != 32,
-        now != 0 { now = read() }
-
-        return Array(buffer[beginIndex..<(index-1)])
-    }
 }
