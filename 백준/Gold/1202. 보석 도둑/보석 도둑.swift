@@ -1,40 +1,32 @@
 let nk = readLine()!.split(separator: " ").compactMap { Int($0) }
 let n = nk[0] // 보석 갯수
 let k = nk[1] // 상덕이 가방 갯수
-var packHeap = Heap<Int>(<)
 var maxHeap = Heap<Int>(>)
-var arr = [(Int,Int)]()
-
-//print(Int.max)
-//print(300000000000)
+var bags = [Int]()
+var jewels = [(cost: Int, value: Int)]()
 
 for _ in 0..<n {
     let mv = readLine()!.split(separator: " ").compactMap { Int($0) }
     let m = mv[0] // 보석 무게
     let v = mv[1] // 보석 가격
-    arr.append((m,v))
+    jewels.append((m,v))
 }
-
-arr.sort { $0.1 > $1.1 }
-arr.sort { $0.0 < $1.0 }
 
 for _ in 0..<k {
     let c = Int(readLine()!)! // 가방에 담을 수 있는 최대 무게
-    packHeap.insert(c)
+    bags.append(c)
 }
+
+jewels.sort { $0.cost < $1.cost }
+bags.sort(by: < )
 
 var result = 0
 var index = 0
-while let currentPack = packHeap.pop() {
 
-    while index <= arr.count-1 {
-        //print("currentPack: \(currentPack), arr[i]: \(arr[index])")
-        if currentPack >= arr[index].0 {
-            maxHeap.insert(arr[index].1)
-            index += 1
-        } else {
-            break
-        }
+for bag in bags {
+    while index <= jewels.count-1, bag >= jewels[index].cost {
+        maxHeap.insert(jewels[index].value)
+        index += 1
     }
     result += maxHeap.pop() ?? 0
 }
