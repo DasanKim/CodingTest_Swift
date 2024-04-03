@@ -11,8 +11,13 @@ var en = maxLength
 
 while st <= en {
     let mid = (st+en)/2
+    var sum = 0
 
-    if isCheck(d: mid) >= m {
+    for a in arr {
+        sum += a / mid
+    }
+    
+    if sum >= m {
         if result < mid {
             result = mid
         }
@@ -23,13 +28,3 @@ while st <= en {
 }
 
 print(result)
-
-func isCheck(d: Int) -> Int {
-    var sum = 0
-
-    for a in arr {
-        sum += a / d
-    }
-
-    return sum
-}
