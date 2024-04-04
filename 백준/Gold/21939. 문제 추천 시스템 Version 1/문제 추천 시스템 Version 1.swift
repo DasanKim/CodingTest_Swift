@@ -2,7 +2,6 @@ let n = Int(readLine()!)!
 var isSolved = [Int: Bool]()
 var result = ""
 
-
 var minHeap = Heap<(Int, Int)>() {
     if $0.1 == $1.1 {
         return $0.0 < $1.0
@@ -42,40 +41,16 @@ for _ in 0..<m {
 
         minHeap.insert((qNumber, difficulty))
         maxHeap.insert((qNumber, difficulty))
-
-        if isSolved[qNumber] != nil {
-
-        }
-
-
         isSolved[qNumber] = false
         case "recommend":
         if input[1] == "1" {
             if let q = maxHeap.first {
                 result += "\(q.0)\n"
             }
-            //                while true {
-            //                    if let q = maxHeap.first,
-            //                       isSolved[q.0] == false {
-            //                        result += "\(q.0)\n"
-            //                        break
-            //                    } else {
-            //                        _ = maxHeap.pop()
-            //                    }
-            //                }
         } else {
             if let q = minHeap.first {
                 result += "\(q.0)\n"
             }
-            //                while true {
-            //                    if let q = minHeap.first,
-            //                       isSolved[q.0] == false {
-            //                        result += "\(q.0)\n"
-            //                        break
-            //                    } else {
-            //                        _ = minHeap.pop()
-            //                    }
-            //                }
         }
         case "solved":
         let qNumber = Int(input[1])!
@@ -102,8 +77,6 @@ for _ in 0..<m {
 }
 
 print(result)
-
-
 
 struct Heap<T> {
     private(set) var heap: [T] = []
