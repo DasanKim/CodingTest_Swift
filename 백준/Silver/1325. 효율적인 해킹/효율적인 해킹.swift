@@ -2,7 +2,6 @@ let nm = readLine()!.split(separator: " ").compactMap{ Int($0) }
 let n = nm[0]
 let m = nm[1]
 var graph = Array(repeating: [Int](), count: n+1)
-var visited = Array(repeating: 0, count: n+1)
 
 for _ in 0..<m {
     let edge = readLine()!.split(separator: " ").compactMap { Int($0) }
@@ -13,7 +12,7 @@ var maxValue = 0
 var computers = [Int]()
 
 for i in 1...n {
-    let temp = bfs(node: i)
+    let temp = dfs(node: i)
 
     if temp > maxValue {
         maxValue = temp
@@ -26,23 +25,21 @@ for i in 1...n {
 let result = computers.map { String($0) }.joined(separator: " ")
 print(result)
 
-func bfs(node: Int) -> Int {
+func dfs(node: Int) -> Int {
     var visited = Array(repeating: false, count: n+1)
-    var queue = [node]
-    var pointer = 0
+    var stack = [node]
+    var dist = 0
 
-    visited[node] = true
+    while !stack.isEmpty {
+        let cur = stack.removeLast()
+        visited[cur] = true
 
-    while queue.count > pointer {
-        let cur = queue[pointer]
-        pointer += 1
-
-        for nextNode in graph[cur] {
-            if visited[nextNode] { continue }
-
+        for nextNode in graph[cur] where !visited[nextNode] {
+            stack.append(nextNode)
             visited[nextNode] = true
-            queue.append(nextNode)
+
+            dist += 1
         }
     }
-    return queue.count
+    return dist
 }
