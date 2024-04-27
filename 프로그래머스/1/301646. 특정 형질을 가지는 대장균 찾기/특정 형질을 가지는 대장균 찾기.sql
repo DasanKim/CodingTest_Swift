@@ -1,0 +1,9 @@
+-- 코드를 작성해주세요
+SELECT COUNT(ID) AS COUNT
+FROM ECOLI_DATA
+WHERE NOT GENOTYPE & 2 && GENOTYPE & 5
+
+
+#                         4321
+# GENOTYPE & 5         -- 0101
+# AND NOT GENOTYPE & 2 -- 0010
