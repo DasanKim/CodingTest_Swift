@@ -5,7 +5,6 @@ let q = input[2]
 
 var arr = Array(repeating: [Int](), count: n+1)
 var size = Array(repeating: 0, count: n+1)
-var visit = Array(repeating: false, count: n+1)
 
 for _ in 0..<n-1 {
     let uv = readLine()!.split(separator: " ").compactMap { Int($0) }
@@ -25,10 +24,9 @@ for _ in 0..<q {
 print(result)
 
 func dfs(cur: Int) -> Int {
-    visit[cur] = true
     size[cur] = 1
 
-    for next in arr[cur] where !visit[next] {
+    for next in arr[cur] where size[next] == 0 {
         size[cur] += dfs(cur: next)
     }
     return size[cur]
