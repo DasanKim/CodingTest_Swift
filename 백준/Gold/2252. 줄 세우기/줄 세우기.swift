@@ -16,22 +16,20 @@ print(result.map{ String($0) }.joined(separator: " "))
 
 func 위상정렬() {
     var queue = [Int]()
+    var pointer = 0
 
     for i in 1...n {
-        if inDegree[i] == 0 {
-            queue.append(i)
-        }
+        if inDegree[i] == 0 { queue.append(i) }
     }
 
-    while !queue.isEmpty {
-        let cur = queue.removeFirst()
+    while pointer < queue.count { //!queue.isEmpty {
+        let cur = queue[pointer] //queue.removeFirst()
+        pointer += 1
         result.append(cur)
 
         for next in graph[cur] {
             inDegree[next] -= 1
-            if inDegree[next] == 0 {
-                queue.append(next)
-            }
+            if inDegree[next] == 0 { queue.append(next) }
         }
     }
 }
