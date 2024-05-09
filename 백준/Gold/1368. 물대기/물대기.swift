@@ -1,32 +1,34 @@
 var heap = Heap<(v1: Int, v2: Int, cost: Int)> { $0.cost < $1.cost }
 let n = Int(readLine()!)!
-var graph = Array(repeating: [(v1: Int, v2: Int, cost: Int)](), count: n+1)
+var graph = Array(repeating: [(v1: Int, v2: Int, cost: Int)](), count: n+2)
 var minSpanningTree = Set<Int>()
 var result = 0
 
-for i in 0..<n {
+for i in 1...n {
     let w = Int(readLine()!)!
-    graph[i].append((i, n, w))
-    graph[n].append((n, i, w))
+    graph[i].append((i, n+1, w))
+    graph[n+1].append((n+1, i, w))
 }
 
-for i in 0..<n {
+for i in 1...n {
     let input = readLine()!.split(separator: " ").compactMap { Int($0) }
     for j in 0..<n {
-        graph[i].append((i, j, input[j]))
+        if i != j+1 {
+            graph[i].append((i, j+1, input[j]))
+        }
     }
 }
 
-minSpanningTree.insert(0)
+minSpanningTree.insert(1)
 
-for next in graph[0] {
+for next in graph[1] {
     heap.insert(next)
 }
 
 while minSpanningTree.count < n + 1 {
-    let cur = heap.pop()!
+    guard let cur = heap.pop() else { break }
 
-    if !minSpanningTree.contains(cur.v2) && cur.cost != 0 {
+    if !minSpanningTree.contains(cur.v2) {
         minSpanningTree.insert(cur.v2)
         result += cur.cost
 
