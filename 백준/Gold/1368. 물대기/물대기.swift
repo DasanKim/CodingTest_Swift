@@ -1,101 +1,56 @@
-var heap = Heap<(v1: Int, v2: Int, cost: Int)> { $0.cost < $1.cost }
 let n = Int(readLine()!)!
-var graph = Array(repeating: [(v1: Int, v2: Int, cost: Int)](), count: n+2)
-var minSpanningTree = Set<Int>()
+var graph = [(v1: Int, v2: Int, cost: Int)]()
+var minSpanningTree = [(v1: Int, v2: Int, cost: Int)]()
+var parent = [-1]
 var result = 0
+
+for i in 1...n+1 {
+    parent.append(i)
+}
 
 for i in 1...n {
     let w = Int(readLine()!)!
-    graph[i].append((i, n+1, w))
-    graph[n+1].append((n+1, i, w))
+    graph.append((i, n+1, w))
 }
 
 for i in 1...n {
     let input = readLine()!.split(separator: " ").compactMap { Int($0) }
     for j in 0..<n {
-        if i != j+1 {
-            graph[i].append((i, j+1, input[j]))
-        }
+        guard i < j+1 else { continue }
+        graph.append((i, j+1, input[j]))
     }
 }
 
-minSpanningTree.insert(1)
+graph.sort { $0.cost > $1.cost }
 
-for next in graph[1] {
-    heap.insert(next)
-}
+while minSpanningTree.count < n {
+    let cur = graph.removeLast()
 
-while minSpanningTree.count < n + 1 {
-    guard let cur = heap.pop() else { break }
-
-    if !minSpanningTree.contains(cur.v2) {
-        minSpanningTree.insert(cur.v2)
+    if find(cur.v1) != find(cur.v2) {
         result += cur.cost
-
-        for next in graph[cur.v2] {
-            if !minSpanningTree.contains(next.v2) {
-                heap.insert(next)
-            }
-        }
+        union(cur.v1, cur.v2)
+        minSpanningTree.append(cur)
     }
 }
 
 print(result)
 
-struct Heap<T> {
-    private(set) var heap: [T] = []
-    private var condition: (T, T) -> Bool
-    var lastNodeIndex: Int { heap.count - 1 }
-    var count: Int { heap.count }
-
-    init(_ condition: @escaping (T, T) -> Bool) {
-        self.condition = condition
+func find(_ node: Int) -> Int {
+    if parent[node] == node {
+        return node
+    } else {
+        parent[node] = find(parent[node])
+        return parent[node]
     }
+}
 
-    private func parentIndex(of index: Int) -> Int {
-        return (index - 1) / 2
-    }
+func union(_ v1: Int, _ v2: Int) {
+    let root1 = find(v1)
+    let root2 = find(v2)
 
-    private func leftChildIndex(of index: Int) -> Int {
-        return index * 2 + 1
-    }
-
-    private func rightChildIndex(of index: Int) -> Int {
-        return index * 2 + 2
-    }
-
-    mutating func insert(_ newElement: T) {
-        heap.append(newElement)
-        var index = lastNodeIndex
-        while index != 0 {
-            let parent = parentIndex(of: index)
-            if condition(heap[parent], heap[index]) { break }
-            heap.swapAt(index, parent)
-            index = parent
-        }
-    }
-
-    mutating func pop() -> T? {
-        if heap.count < 1 { return nil }
-        heap.swapAt(0, lastNodeIndex)
-        let element = heap.removeLast()
-        var index = 0
-
-        while 2*index+1 <= lastNodeIndex {
-            let leftChild = leftChildIndex(of: index)
-            let rightChild = rightChildIndex(of: index)
-            var comparisonTarget = leftChild
-
-            if rightChild <= lastNodeIndex,
-            condition(heap[rightChild], heap[leftChild]) {
-                comparisonTarget = rightChild
-            }
-
-            if condition(heap[index], heap[comparisonTarget]) { break }
-            heap.swapAt(index, comparisonTarget)
-            index = comparisonTarget
-        }
-
-        return element
+    if root1 < root2 {
+        parent[root2] = root1
+    } else {
+        parent[root1] = root2
     }
 }
