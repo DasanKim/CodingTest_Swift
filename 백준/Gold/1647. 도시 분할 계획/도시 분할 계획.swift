@@ -35,12 +35,5 @@ func find(_ node: Int) -> Int {
 }
 
 func union(v1: Int, v2: Int) {
-    let root1 = find(v1)
-    let root2 = find(v2)
-
-    if root1 < root2 {
-        parent[root2] = root1
-    } else {
-        parent[root1] = root2
-    }
+    parent[max(find(v1), find(v2))] = min(find(v1), find(v2))
 }
