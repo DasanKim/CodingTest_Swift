@@ -19,7 +19,7 @@ for k in 1...n {
     for i in 1...n {
         for j in 1...n {
             if arr[i][k] + arr[k][j] < arr[i][j] {
-                arr[i][j] = min(arr[i][j], arr[i][k] + arr[k][j])
+                arr[i][j] = arr[i][k] + arr[k][j]
                 nxt[i][j] = nxt[i][k]
             }
         }
