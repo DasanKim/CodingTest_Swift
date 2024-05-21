@@ -52,12 +52,10 @@ for i in 1...n {
         }
         path.append(j)
 
-        var temp = ""
-        temp += "\(path.count) "
+        var temp = [Int]()
+        temp.append(path.count)
+        temp += path
 
-        for p in path {
-            temp += "\(p) "
-        }
-        print(temp)
+        print(temp.map{ String($0) }.joined(separator: " "))
     }
 }
