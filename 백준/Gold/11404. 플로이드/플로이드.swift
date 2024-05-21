@@ -16,18 +16,20 @@ for i in 1...n {
 for k in 1...n {
     for i in 1...n {
         for j in 1...n {
-            arr[i][j] = min(arr[i][j], arr[i][k] + arr[k][j])
+            if arr[i][k] + arr[k][j] < arr[i][j] {
+                arr[i][j] = arr[i][k] + arr[k][j]
+            }
         }
     }
 }
 
-var result = ""
+var result = [String]()
 for i in 1...n {
     var temp = ""
     for j in 1...n {
         temp += "\(arr[i][j] == maxCost ? 0 : arr[i][j]) "
     }
-    result += "\(temp)\n"
+    result.append(temp)
 }
 
-print(result)
+print(result.joined(separator: "\n"))
