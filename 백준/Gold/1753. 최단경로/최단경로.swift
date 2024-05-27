@@ -1,9 +1,10 @@
 var heap = Heap<(v: Int, cost: Int)>() { $0.cost < $1.cost }
+let INF = Int.max/2
 let ve = readLine()!.split(separator: " ").compactMap { Int($0) }
 let v = ve[0], e = ve[1]
 let k = Int(readLine()!)!
 
-var d = Array(repeating: Int.max/2, count: v)
+var d = Array(repeating: INF, count: v)
 var arr = Array(repeating: [(v: Int, cost: Int)](), count: v)
 
 for _ in 0..<e {
@@ -16,7 +17,7 @@ heap.insert((k-1, d[k-1]))
 
 while !heap.isEmpty {
     let cur = heap.pop()!
-    if d[cur.v] != cur.cost { continue } // 일치하지 않는다면 해당 원소를 제거하고 넘어가기
+    if d[cur.v] != cur.cost { continue }
     for next in arr[cur.v] {
         if d[next.v] <= d[cur.v] + next.cost { continue }
         d[next.v] = d[cur.v] + next.cost
@@ -25,8 +26,11 @@ while !heap.isEmpty {
 }
 
 for i in 0..<v {
-    if d[i] == Int.max/2 { print ("INF") }
-    else { print(d[i]) }
+    if d[i] == INF {
+        print ("INF")
+    } else {
+        print(d[i])
+    }
 }
 
 struct Heap<T> {
