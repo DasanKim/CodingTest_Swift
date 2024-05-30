@@ -16,7 +16,6 @@ let nodes2 = [0] + temp.reversed() + [n-1]
 minArr[0] = dijkstra(start: 0)
 minArr[temp[0]] = dijkstra(start: temp[0])
 minArr[temp[1]] = dijkstra(start: temp[1])
-minArr[n-1] = dijkstra(start: n-1)
 
 print(min(sum(nodes1), sum(nodes2)))
 
