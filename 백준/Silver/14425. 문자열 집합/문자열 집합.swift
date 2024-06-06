@@ -4,13 +4,11 @@ var s = Set<String>()
 var result = 0
 
 for _ in 0..<n {
-    let str = readLine()!
-    s.insert(str)
+    s.insert(readLine()!)
 }
 
 for _ in 0..<m {
-    let str = readLine()!
-    if s.contains(str) { result += 1 }
+    if s.contains(readLine()!) { result += 1 }
 }
 
 print(result)
