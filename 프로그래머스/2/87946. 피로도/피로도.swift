@@ -12,11 +12,8 @@ func solution(_ k:Int, _ dungeons:[[Int]]) -> Int {
 }
 
 func process(current: Int, count: Int, dungeons: [[Int]]) {
-    if count == dungeons.count { 
-        let temp = visit.filter { $0 == true }.count
-        result = max(result, temp) 
-        return 
-    }
+    //count가 증가했다는 건 던전에 방문했다는 의미
+    result = max(result, count)
     
     for i in 0..<visit.count {
         if current < dungeons[i][0] { continue }
@@ -27,7 +24,4 @@ func process(current: Int, count: Int, dungeons: [[Int]]) {
             visit[i] = false
         }
     }
-    
-    let temp = visit.filter { $0 == true }.count
-    result = max(result, temp)
 }
